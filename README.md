@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Available Scripts
 
 In the project directory, you can run:
@@ -67,9 +64,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-天气AK
-TdmQ9bKoTn6dHTk0zaBZKqoY7WgN88tL
-=======
-# react-antd
->>>>>>> 0d454259ac43e0789602a719491c5256579c0ffc

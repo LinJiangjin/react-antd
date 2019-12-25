@@ -8,6 +8,7 @@ import Modals from './pages/ui/modals'
 import Loading from './pages/ui/loadings'
 import FormLogin from './pages/form/login'
 import FormRegister from './pages/form/register'
+import Basic from './pages/table/basic'
 import NoMatch from './pages/noMatch'
 
 export default class IRouter extends React.Component{
@@ -25,6 +26,7 @@ export default class IRouter extends React.Component{
 								<Route path="/admin/ui/loadings" component={Loading} />
 								<Route path="/admin/form/login" component={FormLogin} />
 								<Route path="/admin/form/reg" component={FormRegister} />
+								<Route path="/admin/table/basic" component={Basic} />
 								<Route component={NoMatch} />
 							</Switch>
 						</Admin>

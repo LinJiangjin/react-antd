@@ -18,7 +18,29 @@ const FromItem = Form.Item
 const RadioGroup = Radio.Group
 const Option = Select.Option
 const TextArea = Input.TextArea
+
 class Register extends React.Component{
+	state={}
+	handleSubmit=()=>{
+		let userInfo = this.props.form.getFieldsValue()
+		console.log(userInfo)
+	}
+	getBase64 =(img, callback) => {
+	  const reader = new FileReader();
+	  reader.addEventListener('load', () => callback(reader.result));
+	  reader.readAsDataURL(img);
+	}
+	handleChange = (info) => {
+		if(info.file.status === 'uploading'){
+			this.setState({loading:true});
+		}
+		if(info.file.status === 'done'){
+			this.getBase64(info.file.originFileObj, imageUrl => this.setState({
+				userImg: imageUrl,
+				loading:false
+			}))
+		}
+	}
 	
 	render(){
 		const { getFieldDecorator } = this.props.form;
@@ -35,6 +57,15 @@ class Register extends React.Component{
 		const rowObject = {
 			minRows:4,
 			maxRows:6
+		}
+		const offsetLayout = {
+			wrapperCol:{
+				xs:24,
+				sm:{
+					span:12,
+					offset:4
+				}
+			}
 		}
 		return(
 			<div>
@@ -158,6 +189,33 @@ class Register extends React.Component{
 									<TimePicker ></TimePicker>
 								)
 							}
+						</FromItem>
+						<FromItem label="头像" {...formItemLayout}>
+							{
+								getFieldDecorator('userImg',{
+									
+								})(
+									<Upload 
+										listType="picture-card"
+										showUploadList={false}
+										action="//jsonplaceholder.typicode.com/post/"
+										>
+										{this.state.userImg?<img src={this.state.userImg} />:<Icon type="plus" />}
+									</Upload>
+								)
+							}
+						</FromItem>
+						<FromItem {...offsetLayout}>
+							{
+								getFieldDecorator('userImg',{
+									
+								})(
+									<Checkbox>我已阅读<a>XXXX协议</a></Checkbox>
+								)
+							}
+						</FromItem>
+						<FromItem {...offsetLayout}>
+							<Button type="primary" onClick={this.handleSubmit}>注册</Button>
 						</FromItem>
 					</Form>
 				</Card>

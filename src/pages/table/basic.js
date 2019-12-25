@@ -22,9 +22,9 @@ export default class Basic extends React.Component{
 				id:'1',
 				key:1,
 				userName: 'tom',
-				sex: '1',
+				sex: '0',
 				state:'1',
-				interest: '1',
+				interest: '2',
 				birthday:'2000-01-01',
 				address: '北京市奥林匹克公园',
 				time:'09:00'
@@ -33,9 +33,9 @@ export default class Basic extends React.Component{
 				id:'2',
 				key:2,
 				userName: 'lily',
-				sex: '1',
+				sex: '0',
 				state:'1',
-				interest: '1',
+				interest: '3',
 				birthday:'2000-01-01',
 				address: '北京市奥林匹克公园',
 				time:'09:00'
@@ -59,15 +59,31 @@ export default class Basic extends React.Component{
 			},
 			{
 				title:'性别',
-				dataIndex:'sex'
+				dataIndex:'sex',
+				render(sex){
+					return sex == 1?'男':'女'
+				}
 			},
 			{
 				title:'状态',
-				dataIndex:'status'
+				dataIndex:'state'
 			},
 			{
 				title:'爱好',
-				dataIndex:'interest'
+				dataIndex:'interest',
+				render(interest){
+					let config ={
+						'1': '游泳',
+						'2': '打篮球',
+						'3': '跑步',
+						'4': '踢足球',
+						'5': '爬山',
+						'6': '骑行',
+						'7': '桌球',
+						'8': '麦霸'
+					}
+					return config[interest]
+				}
 			},
 			{
 				title:'生日',

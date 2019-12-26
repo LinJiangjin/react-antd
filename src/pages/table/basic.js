@@ -1,10 +1,14 @@
 import React from 'react'
-import {Card, Table, Pagination  } from 'antd'
+import {Card, Table } from 'antd'
 import axios from '../../axios/index'
+import Utils from './../../utils/utils'
 
 export default class Basic extends React.Component{
 	state={
 		dataSource2:[]
+	}
+	params={
+		page:1
 	}
 	componentDidMount(){
 		const data = [
@@ -50,11 +54,22 @@ export default class Basic extends React.Component{
 	
 	//获取列表数据
 	getTableList=()=>{
+		let _this = this
 		axios.ajax({
-			url: '/teble/list'
+			url: '/teble/list',
+			data:{
+				params:{
+					page:this.params.page
+				}
+			}
 		}).then((res)=>{
 			this.setState({
-				dataSource2: res.data.list
+				dataSource2: res.data.list,
+				pagination: Utils.pagination(res,(current)=>{
+					//todo
+					_this.params.page = current;
+					this.getTableList();
+				})
 			})
 		})
 	}
@@ -146,7 +161,7 @@ export default class Basic extends React.Component{
 						dataSource={this.state.dataSource2}
 						rowKey={record=>record.id}
 						rowSelection={rowSelection}
-						Pagination={Pagination }
+						pagination={this.state.pagination }
 					/>
 				</Card>
 			</div>

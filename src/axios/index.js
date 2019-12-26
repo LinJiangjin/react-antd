@@ -1,6 +1,6 @@
 import JsonP from 'jsonp'
 import axios from 'axios'
-import Modal from 'antd'
+import {Modal} from 'antd'
 
 export default class Axios{
 	static jsonp(options){
@@ -9,7 +9,7 @@ export default class Axios{
 				param:'callback'
 			},function(err,response){
 				//to do
-				//app服务被禁用，无法测试
+				//这个封装是做天气预报的,百度天气预告API服务被禁用，无法测试
 			})
 		})
 	}
@@ -17,16 +17,18 @@ export default class Axios{
 	//封装GET接口
 	static ajax(options){
 		return new Promise((resolve, reject)=>{
-			aixos({
-				usl: options.url,
+			let baseApi = "https://www.easy-mock.com/mock/5e031b60a1d7626ba6e63c9d/imockapi"
+			axios({
+				url: options.url,
 				method:'get',
-				baseURl: baseApi,
+				baseURL: baseApi,
 				timeout:5000,
 				params:(options.data && options.data.params) || ''
 			}).then((response)=>{
-				if(response.status == '200'){
+				console.log(response)
+				if(response.status == 200){
 					let res = response.data;
-					if(res.code == '0'){
+					if(res){
 						resolve(res)
 					}else{
 						Modal.info({
@@ -35,7 +37,7 @@ export default class Axios{
 						})
 					}
 				}else{
-					reject(response.dadta)
+					reject(response.data)
 				}
 			})
 		})

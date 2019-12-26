@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card, Table } from 'antd'
+import axios from '../../axios/index'
 
 export default class Basic extends React.Component{
 	state={
@@ -43,6 +44,21 @@ export default class Basic extends React.Component{
 		]
 		this.setState({
 			dataSource: data
+		})
+		this.getTableList();
+	}
+	
+	//获取列表数据
+	getTableList=()=>{
+		axios.ajax({
+			url: '/teble/list'
+		}).then((res)=>{
+			console.log("2222")
+			if(res.code == 0){
+				this.setState({
+					dataSource2: res
+				})
+			}
 		})
 	}
 	

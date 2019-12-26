@@ -25,7 +25,6 @@ export default class Axios{
 				timeout:5000,
 				params:(options.data && options.data.params) || ''
 			}).then((response)=>{
-				console.log(response)
 				if(response.status == 200){
 					let res = response.data;
 					if(res){

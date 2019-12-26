@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Table } from 'antd'
+import {Card, Table, Pagination  } from 'antd'
 import axios from '../../axios/index'
 
 export default class Basic extends React.Component{
@@ -53,14 +53,16 @@ export default class Basic extends React.Component{
 		axios.ajax({
 			url: '/teble/list'
 		}).then((res)=>{
-			console.log("2222")
-			if(res.code == 0){
-				this.setState({
-					dataSource2: res
-				})
-			}
+			this.setState({
+				dataSource2: res.data.list
+			})
 		})
 	}
+	
+	 onSelectChange = selectedRowKeys => {
+	    console.log('selectedRowKeys changed: ', selectedRowKeys);
+	    this.setState({ selectedRowKeys });
+	  };
 	
 	render(){
 		
@@ -113,7 +115,15 @@ export default class Basic extends React.Component{
 				title:'早起时间',
 				dataIndex:'time'
 			}
-		]
+		];
+		
+		 const { selectedRowKeys } = this.state;
+		
+		const rowSelection = {
+		      selectedRowKeys,
+		      onChange: this.onSelectChange,
+		    };
+		
 		return(
 			<div>
 				<Card title="基础表格">
@@ -128,6 +138,15 @@ export default class Basic extends React.Component{
 						columns={columns}
 						dataSource={this.state.dataSource2}
 						rowKey={record=>record.id}
+					/>
+				</Card>
+				<Card title="双选表格" style={{margin:'10 0'}}>
+					<Table 
+						columns={columns}
+						dataSource={this.state.dataSource2}
+						rowKey={record=>record.id}
+						rowSelection={rowSelection}
+						Pagination={Pagination }
 					/>
 				</Card>
 			</div>
